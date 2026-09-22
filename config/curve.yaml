@@ -1,0 +1,29 @@
+# Fan-curve definition used by `python ilofan.py curve apply|monitor`.
+#
+# IMPORTANT: `fan info t` output parsing is a best-effort heuristic (iLO4's
+# text format isn't documented). Run `python ilofan.py debug temps` first and
+# confirm the parsed sensor indices/values below actually match your server
+# before trusting `curve monitor` unattended.
+
+# How often `curve monitor` polls and re-applies the curve (seconds).
+poll_interval_seconds: 30
+
+# Which `fan t` sensor indices to consider when picking the "highest" temp.
+# Leave empty ([]) to consider every sensor that could be parsed.
+temperature_sensors: []
+
+# Which `fan p` PWM channels to drive with `fan p <n> max <percent>`.
+pwm_channels: [0, 1, 2, 3, 4, 5]
+
+# Hard safety clamps applied to every computed percentage.
+min_pwm_percent: 20
+max_pwm_percent: 100
+
+# Curve control points as [temperature_celsius, fan_percent], sorted
+# automatically. Linear interpolation is used between points.
+points:
+  - [30, 20]
+  - [45, 35]
+  - [55, 55]
+  - [65, 80]
+  - [75, 100]

@@ -1,0 +1,6 @@
+# iLO4's SSH server only supports legacy SHA-1 KEX/host-key algorithms
+# (diffie-hellman-group14-sha1, ssh-rsa, ssh-dss), which paramiko fully
+# removed in 4.0 (DSA) and 5.0 (SHA-1 KEX/signatures). Pin to the 3.x line.
+paramiko>=3.4,<4.0
+python-dotenv>=1.0
+PyYAML>=6.0

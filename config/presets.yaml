@@ -1,0 +1,34 @@
+# Named presets: each is just a list of raw iLO4 `fan` CLI commands, run in
+# order over SSH. Before using min/max-speed presets, run:
+#   python ilofan.py run "fan info"
+# to see how many PWM channels (`fan p N`) and PID loops (`fan pid N`) your
+# server exposes, then adjust the channel numbers below to match.
+#
+# `fan p N min|max <percent>` takes a percentage (0-100, one decimal allowed).
+# `fan pid N sp|lo|hi <value>` takes temperature*100 (e.g. 5500 = 55.00C).
+
+presets:
+  stock:
+    description: "Restore HP's default automatic fan control (safe fallback / reset)."
+    commands:
+      - "fan g start"
+
+  quiet:
+    description: "Modest PWM floor reduction for a quieter homelab. Verify channel numbers for your chassis first."
+    commands:
+      - "fan p 0 min 20"
+      - "fan p 1 min 20"
+      - "fan p 2 min 20"
+      - "fan p 3 min 20"
+      - "fan p 4 min 20"
+      - "fan p 5 min 20"
+
+  performance:
+    description: "Raise PWM floors for extra cooling headroom (e.g. non-HPE PCIe cards)."
+    commands:
+      - "fan p 0 min 45"
+      - "fan p 1 min 45"
+      - "fan p 2 min 45"
+      - "fan p 3 min 45"
+      - "fan p 4 min 45"
+      - "fan p 5 min 45"
